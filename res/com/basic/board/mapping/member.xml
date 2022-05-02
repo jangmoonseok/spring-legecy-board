@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+<sqlMap namespace="member">
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterClass="memberVO">
+		insert into member(mem_id, mem_pass, mem_name, mem_email)
+			values(#mem_id#, #mem_pass#, #mem_name#, #mem_email#)
+		<selectKey keyProperty="mem_id" resultClass="string">
+			select mem_id from member where mem_id = #mem_id#
+		</selectKey>
+	</insert>
+	<!-- 로그인 -->
+	
+	
+</sqlMap>
