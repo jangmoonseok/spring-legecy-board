@@ -21,9 +21,10 @@ public class OMemberDaoImpl implements IMemberDao {
 	}
 
 	@Override
-	public String idCheck(String memId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public int idCheck(String memId) throws SQLException {
+		int cnt = 0;
+		cnt = (int)smc.queryForObject("member.idCheck", memId);
+		return cnt;
 	}
 
 }

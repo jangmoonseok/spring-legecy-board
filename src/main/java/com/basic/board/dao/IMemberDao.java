@@ -9,5 +9,5 @@ public interface IMemberDao {
 	String insertMember(MemberVO memVo) throws SQLException;
 	
 	//아이디중복확인
-	String idCheck(String memId) throws SQLException;
+	int idCheck(String memId) throws SQLException;
 }

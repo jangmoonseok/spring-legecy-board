@@ -12,6 +12,12 @@
 			select mem_id from member where mem_id = #mem_id#
 		</selectKey>
 	</insert>
+	
+	<!-- 아이디 중복 확인 -->
+	<select id="idCheck" parameterClass="string" resultClass="int">
+		select count(*) from member where mem_id = #data#
+	</select>
+	
 	<!-- 로그인 -->
 	
 	
