@@ -42,5 +42,25 @@ public class OMemberDaoImplTest {
 		
 		System.out.println(id);
 	}
+	
+	@Test
+	public void loginTest() {
+		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(OMemberDaoImpl.class);
+		OMemberDaoImpl dao = ac.getBean(OMemberDaoImpl.class);
+		
+		MemberVO memVo = new MemberVO();
+		memVo.setMem_id("dasd");
+		memVo.setMem_pass("mimi");
+		
+		String result = "";
+		try {
+			result = dao.login(memVo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(result);
+	}
 
 }

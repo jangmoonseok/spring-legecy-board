@@ -27,4 +27,11 @@ public class OMemberDaoImpl implements IMemberDao {
 		return cnt;
 	}
 
+	@Override
+	public String login(MemberVO memVo) throws SQLException {
+		String result = "";
+		result = (String)smc.queryForObject("member.login", memVo);
+		return result;
+	}
+
 }
