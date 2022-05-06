@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import com.basic.board.vo.MemberVO;
 
 public interface IMemberService {
+	public String saveMember(MemberVO memVo);
+	
 	//회원가입
 	public String insertMember(MemberVO memVo);
 	

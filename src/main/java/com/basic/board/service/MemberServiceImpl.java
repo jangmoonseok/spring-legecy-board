@@ -15,20 +15,6 @@ public class MemberServiceImpl implements IMemberService {
 	private final IMemberDao dao;
 	
 
-	public String saveMember(MemberVO memVo) {
-		String result = null;
-		
-		int idCheck = idCheck(memVo.getMem_id());
-		if(idCheck > 0) {
-			result = "이미 등록된 회원입니다.";
-		}else {
-			String memId = insertMember(memVo);
-			result = memId + "님 회원가입되었습니다.";
-		}
-		
-		return result; 
-	}
-	
 	@Override
 	public String insertMember(MemberVO memVo) {
 		String result = null;
@@ -66,6 +52,21 @@ public class MemberServiceImpl implements IMemberService {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	@Override
+	public String saveMember(MemberVO memVo) {
+		String result = null;
+		
+		int idCheck = idCheck(memVo.getMem_id());
+		if(idCheck > 0) {
+			result = "false";
+		}else {
+			String memId = insertMember(memVo);
+			result = "success";
+		}
+		
+		return result; 
 	}
 
 }
