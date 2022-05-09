@@ -20,6 +20,8 @@
 			dd
 	 -->
 	<typeAlias alias="memberVO" type="com.basic.board.vo.MemberVO"/>
+	<typeAlias alias="boardVO" type="com.basic.board.vo.BoardVO"/>
+	
 							
 	<!-- DB와의 연결을 처리하는 부분 -->
 	 <!-- db.properties파일 이용하기 -->
@@ -40,6 +42,7 @@
 	<!-- sql문을 처리하는 sqlMap 태그들을 기술한다. -->
 	<!-- <sqlMap resource="경로명/파일명.xml"/> -->
 	<sqlMap resource="com/basic/board/mapping/member.xml"/>
+	<sqlMap resource="com/basic/board/mapping/board.xml"/>
 		
 </sqlMapConfig>
 

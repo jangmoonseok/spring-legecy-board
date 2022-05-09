@@ -16,8 +16,9 @@ public class OMemberDaoImpl implements IMemberDao {
 	
 	@Override
 	public String insertMember(MemberVO memVo) throws SQLException {
-		String memId = (String)smc.insert("member.insertMember", memVo);
-		return memId;
+		String result = null;
+		result = (String)smc.insert("member.insertMember", memVo);
+		return result;
 	}
 
 	@Override

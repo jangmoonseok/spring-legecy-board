@@ -23,8 +23,13 @@ $(function(){
 		$.ajax({
 			url:"<%= request.getContextPath()%>/regist",
 			type:"post",
+			data:{
+				id:$('#id').val(),
+				pwd:$('#pwd').val(),
+				name:$('#name').val(),
+				email:$('#email').val()
+			},
 			success:function(res){
-				console.log(res)
 				if(res == "false"){
 					alert("회원가입 실패")
 					location.reload()
@@ -44,7 +49,7 @@ $(function(){
 </head>
 <body>
 <div id="container">
-	<form action="regist", method="post">
+	<form>
 	  <div class="mb-2 mt-3">
 	    <label for="id" class="form-label">Id:</label>
 	    <input type="text" class="form-control" id="id" placeholder="Enter id" name="id">
@@ -62,7 +67,7 @@ $(function(){
 	    <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
 	  </div>
 
-	  <button type="submit" class="btn btn-danger" id="regist">회원가입</button>
+	  <button type="button" class="btn btn-danger" id="regist">회원가입</button>
 	</form>
 </div>
 </body>

@@ -63,7 +63,11 @@ public class MemberServiceImpl implements IMemberService {
 			result = "false";
 		}else {
 			String memId = insertMember(memVo);
-			result = "success";
+			if(memId != null) {
+				result = "success";
+			}else {
+				result = "false";
+			}
 		}
 		
 		return result; 

@@ -1,5 +1,7 @@
 package com.basic.board.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.basic.board.service.IMemberService;
@@ -72,12 +75,12 @@ public class MemberController {
 	
 	@PostMapping(value="/regist")
 	@ResponseBody
-	public String postRegist(MemberForm form) {
+	public String postRegist(@RequestParam Map<String, Object> paramMap) {
 		MemberVO memVo = new MemberVO();
-		memVo.setMem_id(form.getId());
-		memVo.setMem_pass(form.getPwd());
-		memVo.setMem_name(form.getName());
-		memVo.setMem_email(form.getEmail());
+		memVo.setMem_id((String)paramMap.get("id"));
+		memVo.setMem_pass((String)paramMap.get("id"));
+		memVo.setMem_email((String)paramMap.get("id"));
+		memVo.setMem_name((String)paramMap.get("id"));
 		String result = service.saveMember(memVo);
 		return result;
 	}
