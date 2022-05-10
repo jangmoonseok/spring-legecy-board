@@ -1,7 +1,7 @@
 package com.basic.board.vo;
 
 public class BoardVO {
-	private String board_no     ;
+	private int board_no     ;
 	private String board_title  ;
 	private String board_content;
 	private String board_writer ;
@@ -9,10 +9,10 @@ public class BoardVO {
 	private String board_regdate;
 	
 	
-	public String getBoard_no() {
+	public int getBoard_no() {
 		return board_no;
 	}
-	public void setBoard_no(String board_no) {
+	public void setBoard_no(int board_no) {
 		this.board_no = board_no;
 	}
 	public String getBoard_title() {

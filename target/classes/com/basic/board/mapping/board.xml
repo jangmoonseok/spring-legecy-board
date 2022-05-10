@@ -6,10 +6,25 @@
 <sqlMap namespace="board">
 	<insert id="insertBoard" parameterClass="boardVO">
 		insert into board(board_no, board_title, board_content, board_writer, board_view, board_regdate)
-			values(#board_no#, #board_title#, #board_content#, #board_writer#, #board_view#, sysdate)
+			values(#board_no#, #board_title#, #board_content#, #board_writer#, 0, sysdate)
 	</insert>
 	
-	<select id="getBoardList" resultClass="boardVO">
+	<select id="selectBoardList" resultClass="boardVO">
 		select * from board order by board_no desc
+	</select>
+	
+	<update id="updateBoard" parameterClass="boardVO">
+		update board set
+			board_title = #board_title#,
+			board_content = #board_content#
+		where board_no = #board_no#
+	</update>
+	
+	<delete id="deleteBoard" parameterClass="int">
+		delete from board where board_no = #data#
+	</delete>
+	
+	<select id="selectBoardDetail" parameterClass="int" resultClass="boardVO">
+		select * from board where board_no = #board_no#
 	</select>
 </sqlMap>
