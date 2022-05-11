@@ -20,6 +20,7 @@
 <title>Home</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style type="text/css">
 	.navbar{
 		padding: 10px 30px;
@@ -37,7 +38,30 @@
 	}
 </style>
 <script type="text/javascript">
-
+function updateBoard(bno){
+	$.ajax({
+		url:"<%= request.getContextPath()%>/update",
+		type:"post",
+		data:{
+			boardNo:bno,
+			title:$('#title').val(),
+			content:$('#content').val(),
+		},
+		success:function(res){
+			if(res == 1){
+				alert("수정 완료")
+				location.href = "<%= request.getContextPath()%>/"
+			}else{
+				alert("수정 실패")
+				history.back()
+			}
+		},
+		error:function(xhr){
+			alert("상태 : " + xhr.status)
+			
+		}
+	})
+} 
 </script>
 </head>
 <body>
@@ -64,8 +88,7 @@
 	  	BoardVO board = (BoardVO)request.getAttribute("board");
 	  	if(user.equals(board.getBoard_writer())){
 	  %>
-	  <button class="btn btn-primary" type="button" onclick="location.href = '<%= request.getContextPath()%>/update?bno=${board.board_no }'">수정</button>
-	  <button class="btn btn-primary" type="button" onclick="location.href = '<%= request.getContextPath()%>/delete'">삭제</button>
+	  <button class="btn btn-primary" type="button" onclick="updateBoard('${board.board_no}')" id="updateBtn">수정하기</button>
 	  <button class="btn btn-primary" type="button" onclick="location.href = '<%= request.getContextPath()%>'">목록으로</button>
 	  <%
 	  	}else{
@@ -80,18 +103,18 @@
 	    <thead>
 	      <tr>
 	        <th>게시글 번호</th>
-	        <td>${board.board_no }</td>
+	        <td id="bno">${board.board_no }</td>
 	      </tr>
 	      <tr>
 	        <th>제목</th>
 	        <td>
-	        	<input type="text" class="form-control" id="title" name="title" value=${board.board_title } disabled>
+	        	<input type="text" class="form-control" id="title" name="title" value=${board.board_title }>
 	        </td>
 	      </tr>
 	      <tr>
 	        <th>내용</th>
 	        <td>
-	        	<textarea class="form-control" rows="5" id="content" name="content" disabled>${board.board_content }</textarea>
+	        	<textarea class="form-control" rows="5" id="content" name="content">${board.board_content }</textarea>
 	        </td>
 	      </tr>
 	      <tr>
