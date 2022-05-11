@@ -63,6 +63,16 @@ public class BoardController {
 		return "" + cnt;
 	}
 	
+	@PostMapping(value="delete")
+	@ResponseBody
+	public String deleteBoard(@RequestParam String bno) {
+		int boardNO = Integer.parseInt(bno);
+		
+		int cnt = service.deleteBoard(boardNO);
+		
+		return "" + cnt;
+	}
+	
 	private BoardVO getBoard(String bno) {
 		int boardNo = Integer.parseInt(bno);
 		BoardVO boardDetail = null;

@@ -20,6 +20,7 @@
 <title>Home</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style type="text/css">
 	.navbar{
 		padding: 10px 30px;
@@ -37,7 +38,30 @@
 	}
 </style>
 <script type="text/javascript">
-
+function deleteBoard(bno){
+	flag = confirm("정말 삭제하시겠습니까?")
+	
+	if(!flag){
+		return;
+	}
+	
+	$.ajax({
+		url : "<%= request.getContextPath()%>/delete?bno=" + bno,
+		type:"post",
+		success:function(res){
+			if(res > 0){
+				alert("삭제 성공")
+				location.href = "<%= request.getContextPath()%>/"
+			}else{
+				alert("삭제 실패")
+				history.back();
+			}
+		},
+		error:function(xhr){
+			alert("상태 : " + xhr.status)
+		}
+	})
+}
 </script>
 </head>
 <body>
@@ -65,7 +89,7 @@
 	  	if(user.equals(board.getBoard_writer())){
 	  %>
 	  <button class="btn btn-primary" type="button" onclick="location.href = '<%= request.getContextPath()%>/update?bno=${board.board_no }'">수정</button>
-	  <button class="btn btn-primary" type="button" onclick="location.href = '<%= request.getContextPath()%>/delete'">삭제</button>
+	  <button class="btn btn-primary" type="button" onclick="deleteBoard('${board.board_no}')">삭제</button>
 	  <button class="btn btn-primary" type="button" onclick="location.href = '<%= request.getContextPath()%>'">목록으로</button>
 	  <%
 	  	}else{
