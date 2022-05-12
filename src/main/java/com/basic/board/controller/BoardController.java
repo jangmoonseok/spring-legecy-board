@@ -73,6 +73,32 @@ public class BoardController {
 		return "" + cnt;
 	}
 	
+	
+	@GetMapping(value="boardRegist")
+	public String getBoardRegist() {
+		return "boardRegist";
+	}
+	
+	@PostMapping(value="boardRegist")
+	@ResponseBody
+	public String postBoardRegist(@RequestParam Map<String, Object> paramMap) {
+		BoardVO boardVO = new BoardVO();
+		String title = (String)paramMap.get("title");
+		String content = (String)paramMap.get("content");
+		String writer = (String)paramMap.get("writer");
+//		System.out.println(content);
+//		System.out.println(title);
+//		System.out.println(writer);
+//		
+		boardVO.setBoard_title(title);
+		boardVO.setBoard_content(content);
+		boardVO.setBoard_writer(writer);
+		
+		int cnt = service.insertBoard(boardVO);
+		
+		return "" + cnt;
+	}
+	
 	private BoardVO getBoard(String bno) {
 		int boardNo = Integer.parseInt(bno);
 		BoardVO boardDetail = null;

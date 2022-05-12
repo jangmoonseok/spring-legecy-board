@@ -27,4 +27,11 @@
 	<select id="selectBoardDetail" parameterClass="int" resultClass="boardVO">
 		select * from board where board_no = #board_no#
 	</select>
+	
+	<select id="selectBoardNum" resultClass="int">
+		select board_no from (
+       	 select * from board order by board_no desc
+    	)
+   		where rownum = 1
+	</select>
 </sqlMap>

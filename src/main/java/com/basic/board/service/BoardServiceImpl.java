@@ -20,6 +20,8 @@ public class BoardServiceImpl implements IBoardService {
 		int cnt = 0;
 		
 		try {
+			int bno = dao.selectBoardNum();
+			boardVo.setBoard_no(bno + 1);
 			cnt = dao.insertBoard(boardVo);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -49,4 +49,13 @@ public class BoardDaoImpl implements IBoardDao {
 		return cnt;
 	}
 
+	@Override
+	public int selectBoardNum() throws SQLException {
+		int bno = 0;
+		
+		bno = (int)smc.queryForObject("board.selectBoardNum");
+		
+		return bno;
+	}
+
 }

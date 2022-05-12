@@ -132,6 +132,13 @@
 		    <version>2.3.4.726</version>
 		</dependency>
 		
+		<!-- mybatis-->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis</artifactId>
+		    <version>3.5.0</version>
+		</dependency>
+		
 		<!-- ojdbc -->
 		<dependency>
 		    <groupId>com.oracle.database.jdbc</groupId>

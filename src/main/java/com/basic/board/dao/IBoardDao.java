@@ -20,4 +20,7 @@ public interface IBoardDao {
 	
 	//글 삭제
 	public int deleteBoard(int bno) throws SQLException;
+	
+	//글 번호 조회
+	public int selectBoardNum() throws SQLException;
 }
