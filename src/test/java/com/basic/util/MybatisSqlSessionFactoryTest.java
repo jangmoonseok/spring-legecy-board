@@ -26,7 +26,7 @@ public class MybatisSqlSessionFactoryTest {
 	
 	@Test
 	public void sessionFactoryTest() {
-		Assert.assertNotNull(session);
+		Assert.assertNotNull(sessionFactory);
 	}
 	
 	@Test
