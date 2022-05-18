@@ -22,9 +22,13 @@ public class MemberServiceImplTest {
 		memVo.setMem_pass("mimi");
 		memVo.setMem_email("dsad@dasda.com");
 		
-		String result = service.saveMember(memVo);
+		try {
+			String saveMember = service.saveMember(memVo);
+			System.out.println(saveMember);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		System.out.println(result);
 	}
 	
 	@Test
@@ -33,9 +37,14 @@ public class MemberServiceImplTest {
 		MemberServiceImpl service = ac.getBean(MemberServiceImpl.class);
 		
 		MemberVO memVo = new MemberVO();
-		memVo.setMem_id("dasds");
+		memVo.setMem_id("dasd");
 		memVo.setMem_pass("mimi");
-		String result = service.login(memVo);
+		String result = "";
+		try {
+			result = service.login(memVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		System.out.println(result);
 	}

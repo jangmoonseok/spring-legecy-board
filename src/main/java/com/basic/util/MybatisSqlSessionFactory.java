@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.session.TransactionIsolationLevel;
+import org.springframework.stereotype.Component;
 
 public class MybatisSqlSessionFactory implements SqlSessionFactory{
 	private SqlSessionFactory sessionFactory;

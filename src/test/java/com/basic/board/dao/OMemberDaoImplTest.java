@@ -4,10 +4,14 @@ import static org.junit.Assert.*;
 
 import java.sql.SQLException;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.basic.board.HomeController;
 import com.basic.board.vo.MemberVO;
+import com.basic.util.MybatisSqlSessionFactory;
 
 public class OMemberDaoImplTest {
 
@@ -24,8 +28,11 @@ public class OMemberDaoImplTest {
 	
 	@Test
 	public void insertMemberTest() {
-		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(OMemberDaoImpl.class);
+		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(HomeController.class);
 		OMemberDaoImpl dao = ac.getBean(OMemberDaoImpl.class);
+		SqlSessionFactory sessionFactory = new MybatisSqlSessionFactory();
+		
+		SqlSession session = sessionFactory.openSession();
 		
 		MemberVO memVo = new MemberVO();
 		memVo.setMem_id("dasd");
@@ -34,19 +41,20 @@ public class OMemberDaoImplTest {
 		memVo.setMem_email("dsad@dasda.com");
 		String id = "";
 		try {
-			id = dao.insertMember(memVo);
+			dao.insertMember(session,memVo);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		System.out.println(id);
 	}
 	
 	@Test
 	public void loginTest() {
-		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(OMemberDaoImpl.class);
+		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(HomeController.class);
 		OMemberDaoImpl dao = ac.getBean(OMemberDaoImpl.class);
+		SqlSessionFactory sessionFactory = new MybatisSqlSessionFactory();
+		
+		SqlSession session = sessionFactory.openSession();
+		
 		
 		MemberVO memVo = new MemberVO();
 		memVo.setMem_id("dasd");
@@ -54,7 +62,7 @@ public class OMemberDaoImplTest {
 		
 		String result = "";
 		try {
-			result = dao.login(memVo);
+			result = dao.login(session,memVo);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

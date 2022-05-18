@@ -58,9 +58,14 @@ public class BoardController {
 		boardVO.setBoard_title(title);
 		boardVO.setBoard_content(content);
 		
-		int cnt = service.updateBoard(boardVO);
+		try {
+			service.updateBoard(boardVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "" + 0;
+		}
 		
-		return "" + cnt;
+		return "" + 1;
 	}
 	
 	@PostMapping(value="delete")
@@ -68,9 +73,14 @@ public class BoardController {
 	public String deleteBoard(@RequestParam String bno) {
 		int boardNO = Integer.parseInt(bno);
 		
-		int cnt = service.deleteBoard(boardNO);
+		try {
+			service.deleteBoard(boardNO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "" + 0;
+		}
 		
-		return "" + cnt;
+		return "" + 1;
 	}
 	
 	
@@ -94,16 +104,26 @@ public class BoardController {
 		boardVO.setBoard_content(content);
 		boardVO.setBoard_writer(writer);
 		
-		int cnt = service.insertBoard(boardVO);
+		try {
+			service.insertBoard(boardVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "" + 0;
+		}
 		
-		return "" + cnt;
+		return "" + 1;
 	}
 	
 	private BoardVO getBoard(String bno) {
 		int boardNo = Integer.parseInt(bno);
 		BoardVO boardDetail = null;
 		
-		boardDetail = service.selectBoardDetail(boardNo);
+		try {
+			boardDetail = service.selectBoardDetail(boardNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 		
 		return boardDetail;
 	}

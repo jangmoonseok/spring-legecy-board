@@ -40,7 +40,14 @@ public class MemberController {
 		MemberVO memVo = new MemberVO();
 		memVo.setMem_id(id);
 		memVo.setMem_pass(pwd);
-		String result = service.login(memVo);
+		String result = "";
+		
+		try {
+			result = service.login(memVo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if(result != null) {			
 			Cookie user = new Cookie("user", id);
@@ -81,7 +88,13 @@ public class MemberController {
 		memVo.setMem_pass((String)paramMap.get("id"));
 		memVo.setMem_email((String)paramMap.get("id"));
 		memVo.setMem_name((String)paramMap.get("id"));
-		String result = service.saveMember(memVo);
+		String result = "";
+		try {
+			result = service.saveMember(memVo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return result;
 	}
 	

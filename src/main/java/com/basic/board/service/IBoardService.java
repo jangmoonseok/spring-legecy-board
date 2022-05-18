@@ -7,17 +7,17 @@ import com.basic.board.vo.BoardVO;
 
 public interface IBoardService {
 	//글 등록
-	public int insertBoard(BoardVO boardVo);
+	public void insertBoard(BoardVO boardVo) throws Exception;
 	
 	//글 수정
-	public int updateBoard(BoardVO boardVo);
+	public void updateBoard(BoardVO boardVo) throws Exception;
 	
 	//글 목록
-	public List<BoardVO> selectBoardList();
+	public List<BoardVO> selectBoardList() throws Exception;
 	
 	//글 상세보기
-	public BoardVO selectBoardDetail(int bno);
+	public BoardVO selectBoardDetail(int bno) throws Exception;
 	
 	//글 삭제
-	public int deleteBoard(int bno);
+	public void deleteBoard(int bno) throws Exception;
 }

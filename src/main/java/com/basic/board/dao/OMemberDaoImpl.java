@@ -2,6 +2,7 @@ package com.basic.board.dao;
 
 import java.sql.SQLException;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.basic.board.vo.MemberVO;
@@ -12,26 +13,28 @@ import lombok.RequiredArgsConstructor;
 
 @Repository
 public class OMemberDaoImpl implements IMemberDao {
-	private static SqlMapClient smc = SqlMapClientFactory.getsqlMapClient();
 	
+
 	@Override
-	public String insertMember(MemberVO memVo) throws SQLException {
-		String result = null;
-		result = (String)smc.insert("member.insertMember", memVo);
-		return result;
+	public void insertMember(SqlSession session, MemberVO memVo) throws SQLException {
+		session.insert("member.insertMember", memVo);
 	}
 
 	@Override
-	public int idCheck(String memId) throws SQLException {
+	public int idCheck(SqlSession session, String memId) throws SQLException {
 		int cnt = 0;
-		cnt = (int)smc.queryForObject("member.idCheck", memId);
+		
+		cnt = session.selectOne("member.idCheck", memId);
+				
 		return cnt;
 	}
 
 	@Override
-	public String login(MemberVO memVo) throws SQLException {
+	public String login(SqlSession session, MemberVO memVo) throws SQLException {
 		String result = "";
-		result = (String)smc.queryForObject("member.login", memVo);
+		
+		result = session.selectOne("member.login", memVo);
+
 		return result;
 	}
 

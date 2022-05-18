@@ -6,7 +6,7 @@
 <mapper namespace="board">
 	<insert id="insertBoard" parameterType="boardVO">
 		insert into board(board_no, board_title, board_content, board_writer, board_view, board_regdate)
-			values(#board_no#, #board_title#, #board_content#, #board_writer#, 0, sysdate)
+			values(#{board_no}, #{board_title}, #{board_content}, #{board_writer}, 0, sysdate)
 	</insert>
 	
 	<select id="selectBoardList" resultType="boardVO">
@@ -15,17 +15,17 @@
 	
 	<update id="updateBoard" parameterType="boardVO">
 		update board set
-			board_title = #board_title#,
-			board_content = #board_content#
-		where board_no = #board_no#
+			board_title = #{board_title},
+			board_content = #{board_content}
+		where board_no = #{board_no}
 	</update>
 	
 	<delete id="deleteBoard" parameterType="int">
-		delete from board where board_no = #data#
+		delete from board where board_no = #{data}
 	</delete>
 	
 	<select id="selectBoardDetail" parameterType="int" resultType="boardVO">
-		select * from board where board_no = #board_no#
+		select * from board where board_no = #{board_no}
 	</select>
 	
 	<select id="selectBoardNum" resultType="int">

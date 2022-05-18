@@ -3,10 +3,13 @@ package com.basic.board.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
 
 import com.basic.board.dao.IBoardDao;
 import com.basic.board.vo.BoardVO;
+import com.basic.util.MybatisSqlSessionFactory;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,76 +17,74 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BoardServiceImpl implements IBoardService {
 	private final IBoardDao dao;
+	private final SqlSessionFactory sessionFactory = new MybatisSqlSessionFactory();
 	
 	@Override
-	public int insertBoard(BoardVO boardVo) {
-		int cnt = 0;
+	public void insertBoard(BoardVO boardVo) throws Exception{
+		SqlSession session = sessionFactory.openSession();
+		
 		
 		try {
-			int bno = dao.selectBoardNum();
+			int bno = dao.selectBoardNum(session);
 			boardVo.setBoard_no(bno + 1);
-			cnt = dao.insertBoard(boardVo);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			dao.insertBoard(session,boardVo);
+		} finally {
+			if(session != null) session.close();
 		}
-		return cnt;
 	}
 
 	@Override
-	public int updateBoard(BoardVO boardVo) {
-		int cnt = 0;
+	public void updateBoard(BoardVO boardVo) throws Exception{
+		SqlSession session = sessionFactory.openSession();
 		
 		try {
-			cnt = dao.updateBoard(boardVo);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			dao.updateBoard(session,boardVo);
+		} finally {
+			if(session != null) session.close();
 		}
 		
-		return cnt;
 	}
 
 	@Override
-	public List<BoardVO> selectBoardList() {
+	public List<BoardVO> selectBoardList() throws Exception{
+		SqlSession session = sessionFactory.openSession();
+		
 		List<BoardVO> boardList = null;
 		
 		try {
-			boardList = dao.selectBoardList();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			boardList = dao.selectBoardList(session);
+		} finally {
+			if(session != null) session.close();
 		}
 		
 		return boardList;
 	}
 
 	@Override
-	public BoardVO selectBoardDetail(int bno) {
+	public BoardVO selectBoardDetail(int bno) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		
 		BoardVO boardVo = null;
 		
 		try {
-			boardVo = dao.selectBoardDetail(bno);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			boardVo = dao.selectBoardDetail(session,bno);
+		} finally {
+			if(session != null) session.close();
 		}
 		
 		return boardVo;
 	}
 
 	@Override
-	public int deleteBoard(int bno) {
-		int cnt = 0;
-		
+	public void deleteBoard(int bno) throws Exception{
+		SqlSession session = sessionFactory.openSession();
+				
 		try {
-			cnt = dao.deleteBoard(bno);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			dao.deleteBoard(session,bno);
+		} finally {
+			if(session != null) session.close();
 		}
 		
-		return cnt;
 	}
 
 }
