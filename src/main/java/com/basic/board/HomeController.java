@@ -35,7 +35,12 @@ public class HomeController {
 	 */
 	@GetMapping(value = "/")
 	public String home(Locale locale, Model model) {
-		List<BoardVO> boardList = service.selectBoardList();
+		List<BoardVO> boardList = null;
+		try {
+			boardList = service.selectBoardList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		model.addAttribute("boardList", boardList);
 		return "home";
 	}

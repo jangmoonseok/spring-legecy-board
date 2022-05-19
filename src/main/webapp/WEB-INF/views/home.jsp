@@ -58,7 +58,8 @@
 		List<BoardVO> boardList = (List<BoardVO>)request.getAttribute("boardList");
 		if(boardList == null){
 	%>
-	  <p>게시글이 존재하지 않습니다.</p>           
+		<hr>
+	  	<p>게시글이 존재하지 않습니다.</p>           
 	<%	
 		}else{
 	%>
