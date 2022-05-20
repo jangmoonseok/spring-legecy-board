@@ -43,9 +43,9 @@ function updateBoard(bno){
 		url:"<%= request.getContextPath()%>/update",
 		type:"post",
 		data:{
-			boardNo:bno,
-			title:$('#title').val(),
-			content:$('#content').val(),
+			board_no:bno,
+			board_title:$('#title').val(),
+			board_content:$('#content').val(),
 		},
 		success:function(res){
 			if(res == 1){

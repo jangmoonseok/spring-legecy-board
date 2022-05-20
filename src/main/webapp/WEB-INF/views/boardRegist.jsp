@@ -43,9 +43,9 @@ function boardRegist(){
 		url : "<%= request.getContextPath()%>/boardRegist",
 		type:"post",
 		data:{
-			"title":$('#title').val(),
-			"content":$('#content').val(),
-			"writer":"<%= user%>"
+			"board_title":$('#title').val(),
+			"board_content":$('#content').val(),
+			"board_writer":"<%= user%>"
 		},
 		success:function(res){
 			if(res > 0){

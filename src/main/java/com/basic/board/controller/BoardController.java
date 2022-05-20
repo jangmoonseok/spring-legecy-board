@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,15 +49,15 @@ public class BoardController {
 	
 	@PostMapping(value="update")
 	@ResponseBody
-	public String postUpdateBoard(@RequestParam Map<String, Object> paramMap) {
-		int bno = Integer.parseInt((String)paramMap.get("boardNo"));
-		String title = (String)paramMap.get("title");
-		String content = (String)paramMap.get("content");
-		
-		BoardVO boardVO = new BoardVO();
-		boardVO.setBoard_no(bno);
-		boardVO.setBoard_title(title);
-		boardVO.setBoard_content(content);
+	public String postUpdateBoard(@ModelAttribute BoardVO boardVO) {
+//		int bno = Integer.parseInt((String)paramMap.get("boardNo"));
+//		String title = (String)paramMap.get("title");
+//		String content = (String)paramMap.get("content");
+//		
+//		BoardVO boardVO = new BoardVO();
+//		boardVO.setBoard_no(bno);
+//		boardVO.setBoard_title(title);
+//		boardVO.setBoard_content(content);
 		
 		try {
 			service.updateBoard(boardVO);
@@ -91,18 +92,15 @@ public class BoardController {
 	
 	@PostMapping(value="boardRegist")
 	@ResponseBody
-	public String postBoardRegist(@RequestParam Map<String, Object> paramMap) {
-		BoardVO boardVO = new BoardVO();
-		String title = (String)paramMap.get("title");
-		String content = (String)paramMap.get("content");
-		String writer = (String)paramMap.get("writer");
-//		System.out.println(content);
-//		System.out.println(title);
-//		System.out.println(writer);
-//		
-		boardVO.setBoard_title(title);
-		boardVO.setBoard_content(content);
-		boardVO.setBoard_writer(writer);
+	public String postBoardRegist(@ModelAttribute BoardVO boardVO) {
+//		BoardVO boardVO = new BoardVO();
+//		String title = (String)paramMap.get("title");
+//		String content = (String)paramMap.get("content");
+//		String writer = (String)paramMap.get("writer");
+//
+//		]boardVO.setBoard_title(title);
+//		boardVO.setBoard_content(content);
+//		boardVO.setBoard_writer(writer);
 		
 		try {
 			service.insertBoard(boardVO);
