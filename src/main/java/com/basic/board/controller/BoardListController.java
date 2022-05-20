@@ -1,13 +1,16 @@
 package com.basic.board.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.basic.board.command.Criteria;
 import com.basic.board.service.IBoardService;
+import com.basic.board.vo.BoardVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +20,7 @@ public class BoardListController {
 	private final IBoardService service;
 	
 	@GetMapping(value="list")
-	public String boardList(@RequestParam Map<String, Object> paramMap) {
+	public String boardList(@RequestParam Map<String, Object> paramMap, Model model) {
 		String page = (String)paramMap.get("page");
 		String perPageNum = (String)paramMap.get("perPageNum");
 		
@@ -35,10 +38,20 @@ public class BoardListController {
 				cri.setPage(Integer.parseInt(page));
 				cri.setPerPageNum(Integer.parseInt(perPageNum));
 			} catch (Exception e) {
-				
-			}
-			
+				e.printStackTrace();
+			}		
 		}
-		return null;
+		
+		List<BoardVO> boardList = null;
+		
+		try {
+			boardList = service.selectBoardList(cri);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("boardList", boardList);
+		
+		return "home";
 	}
 }

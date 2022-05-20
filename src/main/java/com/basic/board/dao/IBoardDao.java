@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.basic.board.command.Criteria;
 import com.basic.board.vo.BoardVO;
 
 public interface IBoardDao {
@@ -16,6 +17,7 @@ public interface IBoardDao {
 	
 	//글 목록
 	public List<BoardVO> selectBoardList(SqlSession session) throws SQLException;
+	public List<BoardVO> selectBoardList(SqlSession session, Criteria cri) throws SQLException;
 	
 	//글 상세보기
 	public BoardVO selectBoardDetail(SqlSession session, int bno) throws SQLException;

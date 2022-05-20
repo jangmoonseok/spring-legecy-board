@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
 
+import com.basic.board.command.Criteria;
 import com.basic.board.dao.IBoardDao;
 import com.basic.board.vo.BoardVO;
 import com.basic.util.MybatisSqlSessionFactory;
@@ -85,6 +86,21 @@ public class BoardServiceImpl implements IBoardService {
 			if(session != null) session.close();
 		}
 		
+	}
+
+	@Override
+	public List<BoardVO> selectBoardList(Criteria cri) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		
+		List<BoardVO> boardList = null;
+		
+		try {
+			boardList = dao.selectBoardList(session,cri);
+		} finally {
+			if(session != null) session.close();
+		}
+		
+		return boardList;
 	}
 
 }

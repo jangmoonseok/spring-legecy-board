@@ -3,9 +3,11 @@ package com.basic.board.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.basic.board.command.Criteria;
 import com.basic.board.vo.BoardVO;
 import com.basic.util.SqlMapClientFactory;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -53,6 +55,17 @@ public class BoardDaoImpl implements IBoardDao {
 		bno = session.selectOne("board.selectBoardNum");
 		
 		return bno;
+	}
+
+	@Override
+	public List<BoardVO> selectBoardList(SqlSession session, Criteria cri) throws SQLException {
+		int offset = cri.getStartRowNum();
+		int limit = cri.getPerPageNum();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		List<BoardVO> boardList = session.selectList("board.selectBoardList", null, rowBounds);
+		
+		return boardList;
 	}
 	
 	
