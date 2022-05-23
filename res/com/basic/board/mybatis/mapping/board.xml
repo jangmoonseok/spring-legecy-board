@@ -34,4 +34,8 @@
     	)
    		where rownum = 1
 	</select>
+	
+	<select id="getBoardListCount" resultType="int">
+		select count(*) from board
+	</select>
 </mapper>

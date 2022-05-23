@@ -84,16 +84,8 @@
 				placeholder="검색어를 입력하세요." value=""/>
 	  	</div>
 	</div>
-	<%
-		List<BoardVO> boardList = (List<BoardVO>)request.getAttribute("boardList");
-		if(boardList == null){
-	%>
-		<hr>
-	  	<p>게시글이 존재하지 않습니다.</p>           
-	<%	
-		}else{
-	%>
-	  <table class="table table-striped">
+	<c:set var="boardList" value="${dataMap.boardList }"/>
+	<table class="table table-striped">
 	    <thead>
 	      <tr>
 	        <th>게시글 번호</th>
@@ -103,25 +95,25 @@
 	        <th>작성날짜</th>
 	      </tr>
 	    </thead>
+		<c:if test="${!empty boardList }">
 	    <tbody>
-	      <%
-	      	for(BoardVO vo : boardList){
-	      %>
-	      <tr onclick="location.href='detail?bno=<%= vo.getBoard_no()%>'" style="cursor:pointer;">
-	      	<td><%= vo.getBoard_no()%></td>
-	      	<td><%= vo.getBoard_title()%></td>
-	      	<td><%= vo.getBoard_writer()%></td>
-	      	<td><%= vo.getBoard_view()%></td>
-	      	<td><%= vo.getBoard_regdate()%></td>
-	      </tr>
-	      <%		
-	      	}
-	      %>
+			<c:forEach items="${boardList }" var="board">
+		      <tr onclick="location.href='detail?bno=${board.board_no}'" style="cursor:pointer;">
+		      	<td>${board.board_no }</td>
+		      	<td>${board.board_title }</td>
+		      	<td>${board.board_writer }</td>
+		      	<td>${board.board_view }</td>
+		      	<td>${board.board_regdate }</td>
+		      </tr>
+	      	</c:forEach>
 	    </tbody>
-	  </table>
-	<%
-		}
-	%>
+		</c:if>
+  </table>
+		<c:if test="${empty boardList }">		
+			<hr>
+		  	<p>게시글이 존재하지 않습니다.</p>           
+		</c:if>
+
 </div>
 </body>
 </html>

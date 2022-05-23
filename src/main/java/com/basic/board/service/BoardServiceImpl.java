@@ -1,13 +1,16 @@
 package com.basic.board.service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
 
 import com.basic.board.command.Criteria;
+import com.basic.board.command.PageMaker;
 import com.basic.board.dao.IBoardDao;
 import com.basic.board.vo.BoardVO;
 import com.basic.util.MybatisSqlSessionFactory;
@@ -101,6 +104,29 @@ public class BoardServiceImpl implements IBoardService {
 		}
 		
 		return boardList;
+	}
+
+	@Override
+	public Map<String, Object> getBoardListForPage(Criteria cri) throws Exception {
+		SqlSession session = sessionFactory.openSession();
+		
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		try {
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(dao.getBoardListCount(session));
+			
+			List<BoardVO> boardList = dao.selectBoardList(session, cri);
+			
+			dataMap.put("pageMaker", pageMaker);
+			dataMap.put("boardList", boardList);
+		}finally {
+			if(session != null) session.close();
+		}
+		
+		return dataMap;
 	}
 
 }

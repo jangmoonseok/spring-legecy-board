@@ -27,4 +27,7 @@ public interface IBoardDao {
 	
 	//±Û ¹øÈ£ Á¶È¸
 	public int selectBoardNum(SqlSession session) throws SQLException;
+	
+	//ÃÑ ±Û °¹¼ö
+	public int getBoardListCount(SqlSession session) throws SQLException;
 }

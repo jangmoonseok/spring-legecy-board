@@ -67,6 +67,15 @@ public class BoardDaoImpl implements IBoardDao {
 		
 		return boardList;
 	}
+
+	@Override
+	public int getBoardListCount(SqlSession session) throws SQLException {
+		int cnt = 0;
+		
+		cnt = session.selectOne("board.getBoardListCount");
+		
+		return cnt;
+	}
 	
 	
 

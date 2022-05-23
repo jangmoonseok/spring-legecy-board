@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,14 +15,17 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.basic.board.HomeController;
 import com.basic.board.vo.BoardVO;
+import com.basic.util.MybatisSqlSessionFactory;
 
 public class BoardDaoImplTest {
 
 	private ApplicationContext ac;
+	private SqlSessionFactory factory;
 	
 	@Before
 	public void init() {
 		ac = new AnnotationConfigApplicationContext(HomeController.class);
+		factory = new MybatisSqlSessionFactory();
 	}
 	
 	@Test
@@ -32,94 +37,17 @@ public class BoardDaoImplTest {
 	}
 	
 	@Test
-	public void insertBoardTest() {
-		IBoardDao boardDao = ac.getBean(IBoardDao.class);
+	public void getBoardListCountTest()  {
+		IBoardDao dao = ac.getBean(IBoardDao.class);
+		SqlSession session = factory.openSession();
 		
-		BoardVO vo = new BoardVO();
-		vo.setBoard_no(1);
-		vo.setBoard_title("mimi1");
-		vo.setBoard_content("dasmdasufasd");
-		vo.setBoard_writer("mimi");
-		int cnt = 0;
 		try {
-			cnt = boardDao.insertBoard(vo);
+			int cnt = dao.getBoardListCount(session);
+			System.out.println(cnt);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		Assert.assertEquals(1, cnt);
 	}
 	
-	@Test
-	public void updateBoardTest() {
-		IBoardDao boardDao = ac.getBean(IBoardDao.class);
-		
-		BoardVO vo = new BoardVO();
-		vo.setBoard_no(1);
-		vo.setBoard_title("fsdcngf");
-		vo.setBoard_content("fdghdfnle");
-		
-		int cnt = 0;
-		try {
-			cnt = boardDao.updateBoard(vo);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		Assert.assertEquals(1, cnt);
-	}
-	
-	@Test
-	public void deleteBoardTest() {
-		IBoardDao boardDao = ac.getBean(IBoardDao.class);
-		
-		int cnt = 0;
-		try {
-			cnt = boardDao.deleteBoard(1);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		Assert.assertEquals(1, cnt);
-	}
-	
-	@Test
-	public void selectBoardListTest() {
-		IBoardDao boardDao = ac.getBean(IBoardDao.class);
-		
-		List<BoardVO> list = null;
-		
-		try {
-			list = boardDao.selectBoardList();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		for(BoardVO vo : list) {
-			System.out.println(vo.getBoard_no());
-			System.out.println(vo.getBoard_title());
-		}
-		Assert.assertEquals(2, list.size());
-	}
-	
-	@Test
-	public void selectBoardDetailTest() {
-		IBoardDao boardDao = ac.getBean(IBoardDao.class);
-		
-		BoardVO vo = null;
-		try {
-			vo = boardDao.selectBoardDetail(1);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println(vo.getBoard_title());
-		
-		Assert.assertEquals("mimi1", vo.getBoard_title());
-	}
 }

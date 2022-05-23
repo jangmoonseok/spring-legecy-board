@@ -42,15 +42,15 @@ public class BoardListController {
 			}		
 		}
 		
-		List<BoardVO> boardList = null;
+	
 		
 		try {
-			boardList = service.selectBoardList(cri);
+			Map<String, Object> dataMap = service.getBoardListForPage(cri);
+			model.addAttribute("dataMap", dataMap);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		model.addAttribute("boardList", boardList);
 		
 		return "home";
 	}
