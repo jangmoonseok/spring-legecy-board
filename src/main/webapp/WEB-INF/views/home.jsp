@@ -15,6 +15,8 @@
 		}
 	}
 %>
+<c:set var="pageMaker" value="${dataMap.pageMaker }"/>
+<c:set var="cri" value="${pageMaker.cri }"/>
 <html>
 <head>
 <title>Home</title>
@@ -39,6 +41,10 @@
 	}
 	#searchInput{
 		width: 300px;
+	}
+	.pagination-container{
+		display: flex;
+		justify-content: center;
 	}
 </style>
 <script type="text/javascript">
@@ -67,11 +73,11 @@
 	<div id="header">	
 	  	<h2>게시글 목록</h2>
 	  	<div id="input-groups">
-	  		<select class="form-select">
-	  			<option value="10">정렬개수</option>
-	  			<option value="2">2개</option>
-	  			<option value="3">3개</option>
-	  			<option value="5">5개</option>
+	  		<select class="form-select" id="perPageNum" name="perPageNum" onchange="list_go('1')">
+	  			<option value="10" ${cri.perPageNum eq 10 ? "selected" : "" }>정렬개수</option>
+	  			<option value="2" ${cri.perPageNum eq 2 ? "selected" : "" }>2개</option>
+	  			<option value="3" ${cri.perPageNum eq 3 ? "selected" : "" }>3개</option>
+	  			<option value="5" ${cri.perPageNum eq 5 ? "selected" : "" }>5개</option>
 	  		</select>
 	  		<select class="form-select">
 	  			<option value=""  >검색구분</option>
@@ -113,7 +119,26 @@
 			<hr>
 		  	<p>게시글이 존재하지 않습니다.</p>           
 		</c:if>
-
+	<div class="pagination-container">	
+		<ul class="pagination">
+		  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+		  <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="page">		  
+		  	<li class="page-item ${page eq cri.page ? 'active' : '' }">
+			  	<a class="page-link" href="javascript:list_go(${page })">${page }</a>
+	  		</li>
+		  </c:forEach>
+		  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+		</ul>
+	</div>
 </div>
+<script>
+	function list_go(page,url){
+		if(!url) url = "list";
+		
+		perPageNum = document.querySelector("#perPageNum").value
+		
+		location.href = "<%= request.getContextPath()%>/list?page=" + page + "&perPageNum=" + perPageNum;
+	}
+</script>
 </body>
 </html>

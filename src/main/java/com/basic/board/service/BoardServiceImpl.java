@@ -119,7 +119,6 @@ public class BoardServiceImpl implements IBoardService {
 			pageMaker.setTotalCount(dao.getBoardListCount(session));
 			
 			List<BoardVO> boardList = dao.selectBoardList(session, cri);
-			
 			dataMap.put("pageMaker", pageMaker);
 			dataMap.put("boardList", boardList);
 		}finally {

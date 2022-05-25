@@ -90,11 +90,11 @@ function deleteBoard(bno){
 	  %>
 	  <button class="btn btn-primary" type="button" onclick="location.href = '<%= request.getContextPath()%>/update?bno=${board.board_no }'">수정</button>
 	  <button class="btn btn-primary" type="button" onclick="deleteBoard('${board.board_no}')">삭제</button>
-	  <button class="btn btn-primary" type="button" onclick="location.href = '<%= request.getContextPath()%>'">목록으로</button>
+	  <button class="btn btn-primary" type="button" onclick="location.href = '<%= request.getContextPath()%>/list'">목록으로</button>
 	  <%
 	  	}else{
 	  %>
-	  <button class="btn btn-primary" type="button" onclick="location.href = '<%= request.getContextPath()%>'">목록으로</button>
+	  <button class="btn btn-primary" type="button" onclick="location.href = '<%= request.getContextPath()%>/list'">목록으로</button>
 	  <%		
 	  	}
 	  %>
