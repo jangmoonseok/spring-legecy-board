@@ -4,6 +4,18 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 	
 <sqlMap namespace="board">
+	<sql id="search">	
+		<if test="searchType == 't'.toString()">
+			and board_title like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'w'.toString()">
+			and board_writer like '%'||#{keyword}||'%'			
+		</if>
+		<if test="searchType == 'c'.toString()">
+			and board_content like '%'||#{keyword}||'%'			
+		</if>		
+	</sql>
+
 	<insert id="insertBoard" parameterClass="boardVO">
 		insert into board(board_no, board_title, board_content, board_writer, board_view, board_regdate)
 			values(#board_no#, #board_title#, #board_content#, #board_writer#, 0, sysdate)
@@ -33,5 +45,19 @@
        	 select * from board order by board_no desc
     	)
    		where rownum = 1
+	</select>
+	
+	<select id="selectSearchBoardList" resultType="boardVO">
+		select * from board 
+		where board_no is not null
+		<include refid="search"/>
+		order by board_no desc
+	</select>
+	
+	<select id="selectSearchBoardListCount" resultType="int">
+		select count(*) from board 
+		where board_no is not null
+		<include refid="search"/>
+		order by board_no desc
 	</select>
 </sqlMap>

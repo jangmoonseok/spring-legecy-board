@@ -81,10 +81,9 @@
 	  		</select>
 	  		<select class="form-select">
 	  			<option value=""  >검색구분</option>
-				<option value="i" >아이디</option>
-				<option value="n" >이 름</option>
-				<option value="p" >전화번호</option>
-				<option value="e" >이메일</option>	
+				<option value="title" >제목</option>
+				<option value="writer" >작성자</option>
+				<option value="content" >내용</option>
 	  		</select>
 	  		<input  class="form-control" type="text" name="keyword" id="searchInput" 
 				placeholder="검색어를 입력하세요." value=""/>

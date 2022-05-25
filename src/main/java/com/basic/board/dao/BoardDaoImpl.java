@@ -12,7 +12,6 @@ import com.basic.board.vo.BoardVO;
 import com.basic.util.SqlMapClientFactory;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
-@Repository
 public class BoardDaoImpl implements IBoardDao {
 
 	@Override
