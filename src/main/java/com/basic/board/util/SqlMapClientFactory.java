@@ -1,4 +1,4 @@
-package com.basic.util;
+package com.basic.board.util;
 
 import java.io.IOException;
 import java.io.Reader;

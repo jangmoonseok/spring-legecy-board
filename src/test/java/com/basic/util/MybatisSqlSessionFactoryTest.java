@@ -11,40 +11,27 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.basic.board.HomeController;
+import com.basic.board.util.MybatisSqlSessionFactory;
 import com.basic.board.vo.BoardVO;
 
 public class MybatisSqlSessionFactoryTest {
 
-	private SqlSessionFactory sessionFactory = new MybatisSqlSessionFactory();
-	private SqlSession session;
+	private ApplicationContext ac;
 	
 	@Before
 	public void init() {
-		session = sessionFactory.openSession();
+		ac = new AnnotationConfigApplicationContext(HomeController.class);
 	}
 	
 	@Test
-	public void sessionFactoryTest() {
-		Assert.assertNotNull(sessionFactory);
-	}
-	
-	@Test
-	public void testSqlSession() throws Exception{
-		Collection<String> mapNames = session.getConfiguration().getMappedStatementNames();
+	public void factoryTest() {
+		MybatisSqlSessionFactory bean = ac.getBean(MybatisSqlSessionFactory.class);
 		
-		Assert.assertTrue(mapNames.contains("board.selectBoardList"));
+		Assert.assertNotNull(bean);
 	}
 	
-	@Test
-	public void selectBoardListTest() {
-		List<BoardVO> selectList = session.selectList("board.selectBoardList");
-		
-		Assert.assertEquals(4, selectList.size());
-	}
-	
-	@After
-	public void close() {
-		session.close();
-	}
 }

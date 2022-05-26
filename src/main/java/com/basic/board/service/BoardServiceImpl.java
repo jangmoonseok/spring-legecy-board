@@ -7,21 +7,29 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.basic.board.command.Criteria;
 import com.basic.board.command.PageMaker;
+import com.basic.board.command.SearchCriteria;
 import com.basic.board.dao.IBoardDao;
+import com.basic.board.dao.ISearchBoardDao;
+import com.basic.board.util.MybatisSqlSessionFactory;
 import com.basic.board.vo.BoardVO;
-import com.basic.util.MybatisSqlSessionFactory;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
 public class BoardServiceImpl implements IBoardService {
-	private final IBoardDao dao;
-	private final SqlSessionFactory sessionFactory = new MybatisSqlSessionFactory();
+	private final ISearchBoardDao dao;
+	private final SqlSessionFactory sessionFactory;
+	
+	@Autowired
+	public BoardServiceImpl(ISearchBoardDao dao, SqlSessionFactory sessionFactory) {
+		this.dao = dao;
+		this.sessionFactory = sessionFactory;
+	}
 	
 	@Override
 	public void insertBoard(BoardVO boardVo) throws Exception{
@@ -110,22 +118,31 @@ public class BoardServiceImpl implements IBoardService {
 	public Map<String, Object> getBoardListForPage(Criteria cri) throws Exception {
 		SqlSession session = sessionFactory.openSession();
 		
-		Map<String, Object> dataMap = new HashMap<String, Object>();
+		if(cri instanceof SearchCriteria) {
+			SearchCriteria searchCri = (SearchCriteria) cri;
 		
-		try {
+		
+			Map<String, Object> dataMap = null;
 			
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCri(cri);
-			pageMaker.setTotalCount(dao.getBoardListCount(session));
+			try {
+				dataMap = new HashMap<String, Object>();
+				
+				PageMaker pageMaker = new PageMaker();
+				pageMaker.setCri(cri);
+				pageMaker.setTotalCount(dao.getBoardListCount(session));
+				
+				List<BoardVO> boardList = dao.selectSearchBoardList(session, searchCri);
+				dataMap.put("pageMaker", pageMaker);
+				dataMap.put("boardList", boardList);
+			}finally {
+				if(session != null) session.close();
+			}
 			
-			List<BoardVO> boardList = dao.selectBoardList(session, cri);
-			dataMap.put("pageMaker", pageMaker);
-			dataMap.put("boardList", boardList);
-		}finally {
-			if(session != null) session.close();
+			return dataMap;
+		}else {
+			return null;
 		}
 		
-		return dataMap;
 	}
 
 }

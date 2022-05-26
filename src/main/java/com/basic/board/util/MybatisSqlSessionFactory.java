@@ -1,4 +1,4 @@
-package com.basic.util;
+package com.basic.board.util;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -13,6 +13,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.session.TransactionIsolationLevel;
 import org.springframework.stereotype.Component;
 
+@Component
 public class MybatisSqlSessionFactory implements SqlSessionFactory{
 	private SqlSessionFactory sessionFactory;
 	

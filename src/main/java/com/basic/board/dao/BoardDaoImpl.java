@@ -8,8 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.basic.board.command.Criteria;
+import com.basic.board.util.SqlMapClientFactory;
 import com.basic.board.vo.BoardVO;
-import com.basic.util.SqlMapClientFactory;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
 @Repository

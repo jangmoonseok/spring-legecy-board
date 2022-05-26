@@ -10,8 +10,8 @@ import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.basic.board.HomeController;
+import com.basic.board.util.MybatisSqlSessionFactory;
 import com.basic.board.vo.MemberVO;
-import com.basic.util.MybatisSqlSessionFactory;
 
 public class OMemberDaoImplTest {
 

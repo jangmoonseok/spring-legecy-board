@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.basic.board.util.SqlMapClientFactory;
 import com.basic.board.vo.MemberVO;
-import com.basic.util.SqlMapClientFactory;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
 import lombok.RequiredArgsConstructor;

@@ -7,8 +7,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
 
 import com.basic.board.dao.IMemberDao;
+import com.basic.board.util.MybatisSqlSessionFactory;
 import com.basic.board.vo.MemberVO;
-import com.basic.util.MybatisSqlSessionFactory;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements IMemberService {
 	private final IMemberDao dao;
-	private final SqlSessionFactory sessionFactory = new MybatisSqlSessionFactory();
+	private final SqlSessionFactory sessionFactory;
 
 	@Override
 	public String login(MemberVO memVo) throws Exception{
