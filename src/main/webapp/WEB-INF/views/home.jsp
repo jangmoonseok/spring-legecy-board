@@ -39,8 +39,8 @@
 	#input-groups{
 		display: flex;
 	}
-	#searchInput{
-		width: 300px;
+	#keyword{
+		width: 250px;
 	}
 	.pagination-container{
 		display: flex;
@@ -73,20 +73,21 @@
 	<div id="header">	
 	  	<h2>게시글 목록</h2>
 	  	<div id="input-groups">
-	  		<select class="form-select" id="perPageNum" name="perPageNum" onchange="list_go('1')">
+	  		<select class="form-select" id="perPageNum" name="perPageNum" onchange="list_go(1)" style="width: 150px;">
 	  			<option value="10" ${cri.perPageNum eq 10 ? "selected" : "" }>정렬개수</option>
 	  			<option value="2" ${cri.perPageNum eq 2 ? "selected" : "" }>2개</option>
 	  			<option value="3" ${cri.perPageNum eq 3 ? "selected" : "" }>3개</option>
 	  			<option value="5" ${cri.perPageNum eq 5 ? "selected" : "" }>5개</option>
 	  		</select>
-	  		<select class="form-select">
+	  		<select class="form-select" id="searchType" name="searchType" style="width: 150px;">
 	  			<option value=""  >검색구분</option>
-				<option value="title" >제목</option>
-				<option value="writer" >작성자</option>
-				<option value="content" >내용</option>
+				<option value="t" ${param.searchType eq  't' ? 'selected' : ''}>제목</option>
+				<option value="w" ${param.searchType eq  'w' ? 'selected' : ''}>작성자</option>
+				<option value="c" ${param.searchType eq  'c' ? 'selected' : ''}>내용</option>
 	  		</select>
-	  		<input  class="form-control" type="text" name="keyword" id="searchInput" 
-				placeholder="검색어를 입력하세요." value=""/>
+	  		<input  class="form-control" type="text" name="keyword" id="keyword" 
+				placeholder="검색어를 입력하세요." value="${param.keyword }"/>
+			<button type="button" class="btn btn-outline-primary" onclick="list_go(1)">검색</button>
 	  	</div>
 	</div>
 	<c:set var="boardList" value="${dataMap.boardList }"/>
@@ -130,13 +131,17 @@
 		</ul>
 	</div>
 </div>
+
 <script>
 	function list_go(page,url){
 		if(!url) url = "list";
 		
-		perPageNum = document.querySelector("#perPageNum").value
+		perPageNum = document.querySelector('#perPageNum').value;
+		keyword = document.querySelector('#keyword').value;
+		searchType = document.querySelector('#searchType').value;
 		
-		location.href = "<%= request.getContextPath()%>/list?page=" + page + "&perPageNum=" + perPageNum;
+		location.href = "<%= request.getContextPath()%>/" + url + "?page=" + page + "&perPageNum=" + perPageNum
+					+ "&searchType=" + searchType + "&keyword=" + keyword;
 	}
 </script>
 </body>

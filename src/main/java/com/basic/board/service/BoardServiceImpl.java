@@ -129,7 +129,7 @@ public class BoardServiceImpl implements IBoardService {
 				
 				PageMaker pageMaker = new PageMaker();
 				pageMaker.setCri(cri);
-				pageMaker.setTotalCount(dao.getBoardListCount(session));
+				pageMaker.setTotalCount(dao.getSearchBoardListCount(session, searchCri));
 				
 				List<BoardVO> boardList = dao.selectSearchBoardList(session, searchCri);
 				dataMap.put("pageMaker", pageMaker);

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.basic.board.command.Criteria;
+import com.basic.board.command.SearchCriteria;
 import com.basic.board.service.IBoardService;
 import com.basic.board.vo.BoardVO;
 
@@ -23,8 +24,12 @@ public class BoardListController {
 	public String boardList(@RequestParam Map<String, Object> paramMap, Model model) {
 		String page = (String)paramMap.get("page");
 		String perPageNum = (String)paramMap.get("perPageNum");
+		String searchType = (String)paramMap.get("searchType");
+		String keyword = (String)paramMap.get("keyword");
 		
-		Criteria cri = new Criteria();
+		SearchCriteria cri = new SearchCriteria();
+		cri.setKeyword(keyword);
+		cri.setSearchType(searchType);
 		
 		boolean criFlag = true;
 		
