@@ -10,5 +10,5 @@ import com.basic.board.vo.BoardVO;
 public interface ISearchBoardDao extends IBoardDao {
 
 	List<BoardVO> selectSearchBoardList(SqlSession session, SearchCriteria cri) throws Exception;
-	int selectSearchBoardListCount(SqlSession session, SearchCriteria cri) throws Exception;
+	int getSearchBoardListCount(SqlSession session, SearchCriteria cri) throws Exception;
 }

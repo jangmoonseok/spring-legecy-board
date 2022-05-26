@@ -3,6 +3,7 @@ package com.basic.board.dao;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -35,18 +36,40 @@ public class SearchBoardDaoImplTest {
 		SqlSession session = factory.openSession();
 		
 		SearchCriteria cri = new SearchCriteria();
-
 		
+		cri.setSearchType("t");
+		cri.setKeyword("1");
+		
+		List<BoardVO> boardList = null;
 		try {
-			List<BoardVO> selectSearchBoardList = dao.selectSearchBoardList(session, cri);
-			System.out.println(selectSearchBoardList);
-			
-			Assert.assertEquals(1, selectSearchBoardList.size());
+			boardList = dao.selectSearchBoardList(session, cri);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		Assert.assertEquals(2, boardList.size());
+		
 	}
-	
+
+	@Test
+	public void getSearchBoardListTest() {
+		SearchBoardDaoImpl dao = ac.getBean(SearchBoardDaoImpl.class);
+		
+		SqlSession session = factory.openSession();
+		
+		SearchCriteria cri = new SearchCriteria();
+		
+		cri.setSearchType("t");
+		cri.setKeyword("1");
+		
+		int cnt = 0;
+		try {
+			cnt = dao.getSearchBoardListCount(session, cri);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Assert.assertEquals(2, cnt);
+	}
 
 }
